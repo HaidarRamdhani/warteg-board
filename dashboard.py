@@ -93,7 +93,7 @@ def tampilkan_petugas(daftar_petugas):
         with col_img:
             # Tetapkan lebar gambar ke 64px. Ini ukuran yang baik untuk ikon.
             # Browser akan melakukan downscaling ke ukuran ini.
-            st.image(orang["gambar"], width=150)
+            st.image(orang["gambar"], width=100)
 
         with col_nama:
             # Trik CSS untuk membuat nama berada di tengah secara vertikal
