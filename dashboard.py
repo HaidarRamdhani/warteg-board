@@ -213,7 +213,6 @@ else:
 
 data_harian = jadwal[selected_tanggal]
 
-st.subheader(f"{data_harian['hari']}, {selected_tanggal}")
 st.write("---")
 
 # Bagian Jadwal Harian
