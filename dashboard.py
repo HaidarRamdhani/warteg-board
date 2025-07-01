@@ -4,23 +4,40 @@ from datetime import date
 # Konfigurasi halaman
 st.set_page_config(page_title="Dashboard WarTeg", layout="wide")
 
-# Dummy data jadwal
+# Data jadwal menggunakan path lokal dari folder 'assets'
+# Pastikan folder 'assets' ada di repository GitHub Anda.
 jadwal = {
     "2025-07-01": {
         "hari": "Selasa",
-        "balai_desa": ["Haidar", "Salsa"],
-        "masak": ["Ani", "Budi", "Citra", "Dedi"],
+        "balai_desa": [
+            {"nama": "Haidar", "gambar": "assets/haidar.jpg"},
+            {"nama": "Salsa", "gambar": "assets/salsa.png"}
+        ],
+        "masak": [
+            {"nama": "Ani", "gambar": "assets/ani.jpg"},
+            {"nama": "Budi", "gambar": "assets/budi.jpg"},
+            {"nama": "Citra", "gambar": "assets/citra.jpg"},
+            {"nama": "Dedi", "gambar": "assets/dedi.jpg"}
+        ],
         "lain_lain": None
     },
     "2025-07-02": {
         "hari": "Rabu",
-        "balai_desa": ["Dina", "Eko"],
-        "masak": ["Fina", "Gilang", "Hana", "Ivan"],
+        "balai_desa": [
+            {"nama": "Dina", "gambar": "assets/dina.jpg"},
+            {"nama": "Eko", "gambar": "assets/eko.jpg"}
+        ],
+        "masak": [
+            {"nama": "Fina", "gambar": "assets/fina.jpg"},
+            {"nama": "Gilang", "gambar": "assets/gilang.jpg"},
+            {"nama": "Hana", "gambar": "assets/hana.jpg"},
+            {"nama": "Ivan", "gambar": "assets/ivan.jpg"}
+        ],
         "lain_lain": ["Koordinasi RW"]
     }
 }
 
-# Dummy data proker
+# Data program kerja
 proker = [
     {
         "judul": "Penyuluhan Gizi",
@@ -34,11 +51,13 @@ proker = [
     }
 ]
 
-# Inisialisasi toggle jika belum ada
+# Inisialisasi session state
 if "toggle" not in st.session_state:
     st.session_state.toggle = None
 
-# Pilih tanggal
+# ---- UI (User Interface) ----
+
+# Pilihan tanggal
 tanggal_list = list(jadwal.keys())
 selected_tanggal = st.selectbox("Pilih tanggal", tanggal_list)
 data_harian = jadwal[selected_tanggal]
@@ -65,16 +84,22 @@ with col3:
     if st.button("🍬\nLain-Lain", use_container_width=True):
         st.session_state.toggle = "lain"
 
-# Konten berdasarkan tombol yang ditekan
+def tampilkan_petugas(daftar_petugas):
+    for orang in daftar_petugas:
+        col_img, col_nama = st.columns([1, 4])
+        with col_img:
+            # st.image akan otomatis mencari path 'assets/nama_gambar.jpg'
+            st.image(orang["gambar"], width=50, use_column_width="always")
+        with col_nama:
+            st.markdown(f"<div style='height: 50px; display: flex; align-items: center;'>{orang['nama']}</div>", unsafe_allow_html=True)
+
 if st.session_state.toggle == "balai":
     st.success("👥 Petugas Balai Desa:")
-    for nama in data_harian["balai_desa"]:
-        st.write(f"- {nama}")
+    tampilkan_petugas(data_harian["balai_desa"])
 
 elif st.session_state.toggle == "masak":
     st.success("👩‍🍳 Petugas Masak:")
-    for nama in data_harian["masak"]:
-        st.write(f"- {nama}")
+    tampilkan_petugas(data_harian["masak"])
 
 elif st.session_state.toggle == "lain":
     st.info("📌 Jadwal Lain-Lain:")
@@ -82,17 +107,20 @@ elif st.session_state.toggle == "lain":
         for kegiatan in data_harian["lain_lain"]:
             st.write(f"- {kegiatan}")
     else:
-        st.write("Belum ada jadwal.")
+        st.write("Belum ada jadwal lain.")
 
 st.markdown("---")
 
-# Bagian Proker
+# Bagian Program Kerja
 st.markdown("### 📌 Daftar Proker")
 
 for idx, pk in enumerate(proker):
     with st.expander(f"{pk['judul']}"):
         st.write(f"📎 Catatan: {pk['catatan']}")
-        checks = [st.checkbox(f"{item}", key=f"{idx}-{i}") for i, item in enumerate(pk["subkegiatan"])]
-        persen = sum(checks) / len(checks) * 100
-        st.progress(persen / 100)
-        st.caption(f"{persen:.0f}% selesai")
+        checks = [st.checkbox(f"{item}", key=f"proker_{idx}_{i}") for i, item in enumerate(pk["subkegiatan"])]
+        if checks:
+            persen = sum(checks) / len(checks)
+            st.progress(persen)
+            st.caption(f"{persen:.0%} selesai")
+        else:
+            st.caption("Tidak ada sub-kegiatan.")
