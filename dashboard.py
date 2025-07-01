@@ -139,7 +139,7 @@ jadwal = {
     },
     "2025-07-04": {
         "hari": "Jumat",
-        "balai_desa": "Libur Ges",
+        "balai_desa": {"Libur Ges"},
         "masak": [
             {"nama": "Haidar", "gambar": "assets/Haidar.png"},
             {"nama": "Gina", "gambar": "assets/Gina.png"},
