@@ -117,11 +117,11 @@ jadwal = {
         ],
         "masak": [
             {"nama": "Haidar", "gambar": "assets/Haidar.png"},
-            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"},
             {"nama": "Via", "gambar": "assets/Via.png"},
             {"nama": "Lomi", "gambar": "assets/Lomi.png"}
         ],
-        "lain_lain": ["Koordinasi RW"]
+        "lain_lain": None
     },
     "2025-07-03": {
         "hari": "Kamis",
@@ -130,12 +130,23 @@ jadwal = {
             {"nama": "Lomi", "gambar": "assets/Lomi.png"}
         ],
         "masak": [
-            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
             {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-04": {
+        "hari": "Jumat",
+        "balai_desa": "Libur Ges",
+        "masak": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"},
             {"nama": "Via", "gambar": "assets/Via.png"},
             {"nama": "Lomi", "gambar": "assets/Lomi.png"}
         ],
-        "lain_lain": ["Koordinasi RW"]
+        "lain_lain": None
     }
 }
 
