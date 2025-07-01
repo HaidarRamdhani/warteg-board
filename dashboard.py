@@ -1,9 +1,10 @@
 import streamlit as st
 from datetime import date
 
+# Konfigurasi halaman
 st.set_page_config(page_title="Dashboard WarTeg", layout="wide")
 
-# ==================== DATA DUMMY ==================== #
+# Dummy data jadwal
 jadwal = {
     "2025-07-01": {
         "hari": "Selasa",
@@ -19,95 +20,79 @@ jadwal = {
     }
 }
 
+# Dummy data proker
 proker = [
     {
         "judul": "Penyuluhan Gizi",
         "catatan": "Hubungi puskesmas & siapkan materi",
         "subkegiatan": ["Hubungi narasumber", "Desain pamflet", "Cetak materi"],
+    },
+    {
+        "judul": "Pelatihan Digital",
+        "catatan": "Pastikan sinyal & LCD tersedia",
+        "subkegiatan": ["Survey peserta", "Siapkan modul", "Latihan presentasi"],
     }
 ]
 
-# ==================== STATE ==================== #
+# Inisialisasi toggle jika belum ada
 if "toggle" not in st.session_state:
-    st.session_state.toggle = {"balai": False, "masak": False, "lain": False}
+    st.session_state.toggle = None
 
-# ==================== TANGGAL ==================== #
-tanggal = st.selectbox("Pilih tanggal", list(jadwal.keys()))
-data = jadwal[tanggal]
+# Pilih tanggal
+tanggal_list = list(jadwal.keys())
+selected_tanggal = st.selectbox("Pilih tanggal", tanggal_list)
+data_harian = jadwal[selected_tanggal]
 
-st.markdown(f"## 📅 Dashboard WarTeg!")
-st.subheader(f"{data['hari']}, {tanggal}")
-st.divider()
+# Header
+st.markdown(f"<h1 style='font-size: 42px;'>📅 Dashboard WarTeg!</h1>", unsafe_allow_html=True)
+st.subheader(f"{data_harian['hari']}, {selected_tanggal}")
+st.write("---")
 
-# ==================== STYLING ==================== #
-st.markdown("""
-<style>
-.icon-button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    text-align: center;
-}
-.icon-button img {
-    width: 100px;
-    transition: 0.2s ease-in-out;
-}
-.icon-button img:hover {
-    transform: scale(1.1);
-}
-.icon-grid {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 20px;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# ==================== IKON (GAMBAR = TOMBOL) ==================== #
+# Bagian Jadwal Harian
 st.markdown("### Jadwal Harian")
 
-# Event click manual
-params = st.query_params
-if "klik" in params:
-    klik = params["klik"]
-    st.session_state.toggle[klik] = not st.session_state.toggle[klik]
+col1, col2, col3 = st.columns(3)
 
-# HTML dengan link query string untuk trigger toggle
-st.markdown(f"""
-<div class="icon-grid">
-    <a href="?klik=balai" class="icon-button"><img src="https://img.icons8.com/ios-filled/100/museum.png" title="Balai Desa" /></a>
-    <a href="?klik=masak" class="icon-button"><img src="https://img.icons8.com/ios/100/cooking-pot.png" title="Masak" /></a>
-    <a href="?klik=lain" class="icon-button"><img src="https://img.icons8.com/ios/100/more.png" title="Lain-Lain" /></a>
-</div>
-""", unsafe_allow_html=True)
+with col1:
+    if st.button("🏛️\nBalai Desa", use_container_width=True):
+        st.session_state.toggle = "balai"
 
-# ==================== KONTEN ==================== #
-if st.session_state.toggle["balai"]:
+with col2:
+    if st.button("🍳\nMasak", use_container_width=True):
+        st.session_state.toggle = "masak"
+
+with col3:
+    if st.button("🍬\nLain-Lain", use_container_width=True):
+        st.session_state.toggle = "lain"
+
+# Konten berdasarkan tombol yang ditekan
+if st.session_state.toggle == "balai":
     st.success("👥 Petugas Balai Desa:")
-    for nama in data["balai_desa"]:
+    for nama in data_harian["balai_desa"]:
         st.write(f"- {nama}")
 
-if st.session_state.toggle["masak"]:
+elif st.session_state.toggle == "masak":
     st.success("👩‍🍳 Petugas Masak:")
-    for nama in data["masak"]:
+    for nama in data_harian["masak"]:
         st.write(f"- {nama}")
 
-if st.session_state.toggle["lain"]:
-    st.warning("📌 Jadwal Lain-Lain:")
-    if data["lain_lain"]:
-        for item in data["lain_lain"]:
-            st.write(f"- {item}")
+elif st.session_state.toggle == "lain":
+    st.info("📌 Jadwal Lain-Lain:")
+    if data_harian["lain_lain"]:
+        for kegiatan in data_harian["lain_lain"]:
+            st.write(f"- {kegiatan}")
     else:
         st.write("Belum ada jadwal.")
 
-st.divider()
+st.markdown("---")
 
-# ==================== PROKER ==================== #
+# Bagian Proker
 st.markdown("### 📌 Daftar Proker")
-for idx, p in enumerate(proker):
-    with st.expander(p["judul"]):
-        st.write(f"📎 Catatan: {p['catatan']}")
-        checks = [st.checkbox(x, key=f"{idx}-{i}") for i, x in enumerate(p["subkegiatan"])]
-        percent = sum(checks) / len(checks) * 100
-        st.progress(percent / 100)
-        st.caption(f"{percent:.0f}% selesai")
+
+for idx, pk in enumerate(proker):
+    with st.expander(f"{pk['judul']}"):
+        st.write(f"📎 Catatan: {pk['catatan']}")
+        checks = [st.checkbox(f"{item}", key=f"{idx}-{i}") for i, item in enumerate(pk["subkegiatan"])]
+        persen = sum(checks) / len(checks) * 100
+        st.progress(persen / 100)
+        st.caption(f"{persen:.0f}% selesai")
