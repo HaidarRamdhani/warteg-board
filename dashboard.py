@@ -25,42 +25,42 @@ def get_image_as_base64(path: str) -> str | None:
 # --- FUNGSI BARU UNTUK LAYOUT 2 KOLOM ---
 def tampilkan_petugas(daftar_petugas: list[dict]):
     """
-    Menampilkan daftar petugas dalam layout DUA KOLOM,
-    ideal untuk tampilan mobile.
+    Menampilkan daftar petugas dalam layout DUA KOLOM yang dipaksa (forced)
+    menggunakan HTML Flexbox, bahkan di mobile.
     """
-    # Buat dua kolom utama untuk menampung daftar
-    kolom_kiri, kolom_kanan = st.columns(2)
+    # Memulai container flexbox.
+    all_items_html = '<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">'
 
-    # Iterasi pada daftar petugas dengan langkah 2
-    for i in range(0, len(daftar_petugas), 2):
-        # Proses petugas di kolom kiri
-        orang_kiri = daftar_petugas[i]
-        with kolom_kiri:
-            # Panggil fungsi untuk render satu item
-            render_satu_petugas(orang_kiri)
+    for orang in daftar_petugas:
+        # Panggil fungsi render untuk mendapatkan string HTML satu item
+        # dan tambahkan ke string utama.
+        all_items_html += render_satu_petugas(orang)
 
-        # Cek apakah ada pasangan untuk kolom kanan
-        if i + 1 < len(daftar_petugas):
-            orang_kanan = daftar_petugas[i+1]
-            with kolom_kanan:
-                # Panggil fungsi untuk render satu item
-                render_satu_petugas(orang_kanan)
+    # Tutup tag div container
+    all_items_html += '</div>'
 
-def render_satu_petugas(orang: dict):
+    # Render seluruh blok HTML sekaligus
+    st.markdown(all_items_html, unsafe_allow_html=True)
+
+
+def render_satu_petugas(orang: dict) -> str:
     """
     Fungsi ini bertanggung jawab untuk me-render SATU item petugas
-    (gambar dan nama). Dipanggil oleh tampilkan_petugas.
+    dan MENGEMBALIKANNYA SEBAGAI STRING HTML.
     """
     base64_image = get_image_as_base64(orang["gambar"])
     
+    # Style untuk setiap item. 'flex: 0 0 48%' adalah kunci untuk 2 kolom.
+    item_style = "flex: 0 0 48%; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;"
+
     if base64_image:
         # Menggunakan HTML untuk layout yang lebih ringkas dan terpusat
         item_html = f"""
-            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+            <div style="{item_style}">
                 <img src="data:image/png;base64,{base64_image}"
                      style="
-                        width: 100px;
-                        height: 100px;
+                        width: 80px;
+                        height: 80px;
                         object-fit: cover;
                         border-radius: 50%; /* Membuat gambar menjadi bulat */
                         margin-bottom: 8px;
@@ -71,18 +71,16 @@ def render_satu_petugas(orang: dict):
                 <div style="font-weight: bold; text-align: center;">{orang['nama']}</div>
             </div>
         """
-        st.markdown(item_html, unsafe_allow_html=True)
+        return item_html
     else:
         # Placeholder jika gambar tidak ditemukan
-        st.markdown(
-            f"""
-            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+        placeholder_html = f"""
+            <div style="{item_style}">
                 <div style="width:80px; height:80px; background-color:#ddd; border-radius:50%;"></div>
                 <div style="font-weight: bold; text-align: center; margin-top: 8px;">{orang['nama']}</div>
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+        """
+        return placeholder_html
 
 
 # ==============================================================================
