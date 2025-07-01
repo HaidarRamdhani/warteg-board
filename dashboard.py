@@ -165,8 +165,23 @@ if "toggle" not in st.session_state:
 st.markdown(f"<h1 style='font-size: 42px;'>📅 Dashboard WarTeg!</h1>", unsafe_allow_html=True)
 
 # Pilihan tanggal
+# --- PERUBAHAN UNTUK MENAMBAHKAN NAMA HARI DI SELECTBOX ---
+# Ambil daftar tanggal (kunci dari dictionary)
 tanggal_list = list(jadwal.keys())
-selected_tanggal = st.selectbox("Pilih tanggal", tanggal_list)
+
+# Buat fungsi untuk memformat tampilan di selectbox
+def format_nama_hari(tanggal):
+    nama_hari = jadwal[tanggal]['hari']
+    return f"{nama_hari}, {tanggal}"
+
+# Gunakan format_func di st.selectbox
+selected_tanggal = st.selectbox(
+    "Pilih tanggal",
+    options=tanggal_list,
+    format_func=format_nama_hari
+)
+# -----------------------------------------------------------
+
 data_harian = jadwal[selected_tanggal]
 
 st.subheader(f"{data_harian['hari']}, {selected_tanggal}")
