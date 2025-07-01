@@ -10,28 +10,28 @@ jadwal = {
     "2025-07-01": {
         "hari": "Selasa",
         "balai_desa": [
-            {"nama": "Haidar", "gambar": "assets/haidar.jpg"},
-            {"nama": "Salsa", "gambar": "assets/salsa.png"}
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"}
         ],
         "masak": [
-            {"nama": "Ani", "gambar": "assets/ani.jpg"},
-            {"nama": "Budi", "gambar": "assets/budi.jpg"},
-            {"nama": "Citra", "gambar": "assets/citra.jpg"},
-            {"nama": "Dedi", "gambar": "assets/dedi.jpg"}
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
         ],
         "lain_lain": None
     },
     "2025-07-02": {
         "hari": "Rabu",
         "balai_desa": [
-            {"nama": "Dina", "gambar": "assets/dina.jpg"},
-            {"nama": "Eko", "gambar": "assets/eko.jpg"}
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"}
         ],
         "masak": [
-            {"nama": "Fina", "gambar": "assets/fina.jpg"},
-            {"nama": "Gilang", "gambar": "assets/gilang.jpg"},
-            {"nama": "Hana", "gambar": "assets/hana.jpg"},
-            {"nama": "Ivan", "gambar": "assets/ivan.jpg"}
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"}
         ],
         "lain_lain": ["Koordinasi RW"]
     }
