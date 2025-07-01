@@ -102,18 +102,34 @@ with col3:
 
 def tampilkan_petugas(daftar_petugas):
     for orang in daftar_petugas:
-        # 1. Perkecil jarak antar kolom dengan `gap="small"`
-        # 2. Sesuaikan rasio kolom agar lebih pas
         col_img, col_nama = st.columns([1, 5], gap="small")
 
         with col_img:
-            # Tetapkan lebar gambar ke 64px. Ini ukuran yang baik untuk ikon.
-            # Browser akan melakukan downscaling ke ukuran ini.
-            st.image(orang["gambar"], width=100)
+            # Panggil fungsi untuk mendapatkan string base64 dari thumbnail Anda
+            # Pastikan path di dictionary 'jadwal' menunjuk ke file thumbnail (contoh: 'assets/haidar_thumb.png')
+            base64_image = get_image_as_base64(orang["gambar"])
+
+            if base64_image:
+                # Buat HTML dengan gambar Base64 dan CSS untuk rendering tajam
+                image_html = f"""
+                    <img src="data:image/png;base64,{base64_image}"
+                         style="
+                            width: 64px;
+                            height: 64px;
+                            object-fit: cover;
+                            border-radius: 8px;
+                            image-rendering: -webkit-optimize-contrast; /* Chrome, Safari */
+                            image-rendering: crisp-edges; /* Firefox */
+                         "
+                    >
+                """
+                st.markdown(image_html, unsafe_allow_html=True)
+            else:
+                # Tampilkan kotak abu-abu jika gambar tidak ditemukan
+                st.markdown('<div style="width:64px; height:64px; background-color:#ddd; border-radius:8px;"></div>', unsafe_allow_html=True)
 
         with col_nama:
-            # Trik CSS untuk membuat nama berada di tengah secara vertikal
-            # dan menghilangkan margin default dari tag header.
+            # Bagian nama tetap sama
             st.markdown(
                 f"""
                 <div style="height: 64px; display: flex; align-items: center;">
@@ -122,6 +138,7 @@ def tampilkan_petugas(daftar_petugas):
                 """,
                 unsafe_allow_html=True
             )
+            
 if st.session_state.toggle == "balai":
     st.success("👥 Petugas Balai Desa:")
     tampilkan_petugas(data_harian["balai_desa"])
