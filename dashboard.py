@@ -68,11 +68,32 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Tombol Icon
+from PIL import Image
+
+# Inisialisasi state
+if "show" not in st.session_state:
+    st.session_state.show = {"balai": False, "masak": False, "lain": False}
+
+def toggle(key):
+    st.session_state.show[key] = not st.session_state.show[key]
+
+# Load ikon (pastikan file ada di folder `assets/`)
 col1, col2, col3 = st.columns(3)
-show_balai = col1.button("🏢 Balai Desa")
-show_masak = col2.button("🍳 Masak")
-show_lain = col3.button("🍬 Lain-Lain")
+
+with col1:
+    st.image("assets/balai_desa.png", width=100)
+    if st.button("Balai Desa"):
+        toggle("balai")
+
+with col2:
+    st.image("assets/masak.png", width=100)
+    if st.button("Masak"):
+        toggle("masak")
+
+with col3:
+    st.image("assets/lain_lain.png", width=100)
+    if st.button("Lain-Lain"):
+        toggle("lain")
 
 # Konten muncul setelah ditekan
 if show_balai:
