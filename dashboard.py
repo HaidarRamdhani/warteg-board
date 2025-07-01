@@ -122,6 +122,20 @@ jadwal = {
             {"nama": "Lomi", "gambar": "assets/Lomi.png"}
         ],
         "lain_lain": ["Koordinasi RW"]
+    },
+    "2025-07-03": {
+        "hari": "Kamis",
+        "balai_desa": [
+            {"nama": "Gina", "gambar": "assets/Gina.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"}
+        ],
+        "masak": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"}
+        ],
+        "lain_lain": ["Koordinasi RW"]
     }
 }
 
