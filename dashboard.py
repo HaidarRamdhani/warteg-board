@@ -19,56 +19,71 @@ def get_image_as_base64(path: str) -> str | None:
     except FileNotFoundError:
         # Jika file tidak ditemukan, tampilkan peringatan di konsol
         # dan kembalikan None agar bisa ditangani di UI.
-        # >>> LIHAT TERMINAL ANDA UNTUK PESAN INI <<<
-        print(f"PERINGATAN: File gambar tidak ditemukan di path: {path}")
+        print(f"Peringatan: File gambar tidak ditemukan di path: {path}")
         return None
 
+# --- FUNGSI BARU UNTUK LAYOUT 2 KOLOM ---
 def tampilkan_petugas(daftar_petugas: list[dict]):
     """
-    Menampilkan daftar petugas dengan gambar dan nama.
-    Menggunakan HTML dan Base64 untuk rendering gambar yang tajam.
+    Menampilkan daftar petugas dalam layout DUA KOLOM,
+    ideal untuk tampilan mobile.
     """
-    # Pesan debugging untuk terminal
-    print("\n--- Memproses daftar petugas ---") 
-    for orang in daftar_petugas:
-        # Pesan debugging untuk setiap orang
-        print(f"Mencoba menampilkan: {orang['nama']} (Gambar: {orang['gambar']})")
-        
-        col_img, col_nama = st.columns([1, 5], gap="small")
+    # Buat dua kolom utama untuk menampung daftar
+    kolom_kiri, kolom_kanan = st.columns(2)
 
-        with col_img:
-            base64_image = get_image_as_base64(orang["gambar"])
+    # Iterasi pada daftar petugas dengan langkah 2
+    for i in range(0, len(daftar_petugas), 2):
+        # Proses petugas di kolom kiri
+        orang_kiri = daftar_petugas[i]
+        with kolom_kiri:
+            # Panggil fungsi untuk render satu item
+            render_satu_petugas(orang_kiri)
 
-            if base64_image:
-                # Pesan debugging jika gambar berhasil di-encode
-                print(f"  -> SUKSES: Gambar untuk {orang['nama']} berhasil di-encode.")
-                
-                # Membuat string HTML dalam satu baris untuk menghindari eror format
-                style_str = "width:64px; height:64px; object-fit:cover; border-radius:8px; image-rendering:-webkit-optimize-contrast; image-rendering:crisp-edges;"
-                image_html = f'<img src="data:image/png;base64,{base64_image}" style="{style_str}">'
-                
-                # Render HTML, ini adalah bagian kunci yang memerlukan unsafe_allow_html
-                st.markdown(image_html, unsafe_allow_html=True)
-            else:
-                # Pesan debugging jika gambar gagal ditemukan
-                print(f"  -> GAGAL: Gambar untuk {orang['nama']} tidak ditemukan.")
-                
-                # Jika gambar tidak ditemukan, tampilkan kotak placeholder
-                st.markdown(
-                    '<div style="width:64px; height:64px; background-color:#ddd; border-radius:8px;"></div>', 
-                    unsafe_allow_html=True
-                )
+        # Cek apakah ada pasangan untuk kolom kanan
+        if i + 1 < len(daftar_petugas):
+            orang_kanan = daftar_petugas[i+1]
+            with kolom_kanan:
+                # Panggil fungsi untuk render satu item
+                render_satu_petugas(orang_kanan)
 
-        with col_nama:
-            # Render nama di samping gambar
-            st.markdown(
-                f"""
-                <div style="height: 64px; display: flex; align-items: center;">
-                    <h5 style="margin: 0; padding-left: 10px;">{orang['nama']}</h5>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+def render_satu_petugas(orang: dict):
+    """
+    Fungsi ini bertanggung jawab untuk me-render SATU item petugas
+    (gambar dan nama). Dipanggil oleh tampilkan_petugas.
+    """
+    base64_image = get_image_as_base64(orang["gambar"])
+    
+    if base64_image:
+        # Menggunakan HTML untuk layout yang lebih ringkas dan terpusat
+        item_html = f"""
+            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                <img src="data:image/png;base64,{base64_image}"
+                     style="
+                        width: 80px;
+                        height: 80px;
+                        object-fit: cover;
+                        border-radius: 50%; /* Membuat gambar menjadi bulat */
+                        margin-bottom: 8px;
+                        image-rendering: -webkit-optimize-contrast;
+                        image-rendering: crisp-edges;
+                     "
+                >
+                <div style="font-weight: bold; text-align: center;">{orang['nama']}</div>
+            </div>
+        """
+        st.markdown(item_html, unsafe_allow_html=True)
+    else:
+        # Placeholder jika gambar tidak ditemukan
+        st.markdown(
+            f"""
+            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                <div style="width:80px; height:80px; background-color:#ddd; border-radius:50%;"></div>
+                <div style="font-weight: bold; text-align: center; margin-top: 8px;">{orang['nama']}</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
 
 # ==============================================================================
 # KONFIGURASI DAN DATA
