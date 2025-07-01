@@ -481,14 +481,15 @@ jadwal = {
 # Data program kerja
 proker = [
     {
-        "judul": "Penyuluhan Gizi",
-        "catatan": "Hubungi puskesmas & siapkan materi",
-        "subkegiatan": ["Hubungi narasumber", "Desain pamflet", "Cetak materi"],
+        "judul": "Kandaga",
+        "catatan": "Budidaya Ikan dalam Galon",
+        "subkegiatan": ["Beli EM4", "Beli Plastik", "Beli Media Tanam","Beli Selang", "Galon", "Sewa Alat", "Pengendapan Air",
+                       "Rakit Media", "Beli Bibit", "Barang Jadi (Trial)", "Demonstrasi 1", "Demonstrasi 2"],
     },
     {
-        "judul": "Pelatihan Digital",
-        "catatan": "Pastikan sinyal & LCD tersedia",
-        "subkegiatan": ["Survey peserta", "Siapkan modul", "Latihan presentasi"],
+        "judul": "TandurKit",
+        "catatan": "Kit/Starter Pack Penanaman untuk Anak",
+        "subkegiatan": ["Beli Bahan", "Isi Kit", "Demonstrasi"],
     }
 ]
 
