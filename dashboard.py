@@ -1,5 +1,21 @@
 import streamlit as st
 from datetime import date
+import base64
+import streamlit as st
+from datetime import date
+
+# --- TAMBAHKAN FUNGSI INI DI BAGIAN ATAS ---
+@st.cache_data
+def get_image_as_base64(path):
+    """Membaca file gambar dan mengubahnya menjadi string Base64."""
+    try:
+        with open(path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        # Jika file tidak ditemukan, kembalikan None
+        return None
+# ---------------------------------------------
+
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Dashboard WarTeg", layout="wide")
