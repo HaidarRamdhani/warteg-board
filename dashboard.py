@@ -11,7 +11,7 @@ jadwal = {
         "hari": "Selasa",
         "balai_desa": [
             {"nama": "Via", "gambar": "assets/Via.jpg"},
-            {"nama": "Deni", "gambar": "assets/Deni."}
+            {"nama": "Deni", "gambar": "assets/Deni.jpg"}
         ],
         "masak": [
             {"nama": "Atika", "gambar": "assets/Atika.jpg"},
