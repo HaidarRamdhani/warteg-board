@@ -176,22 +176,40 @@ if "toggle" not in st.session_state:
 st.markdown(f"<h1 style='font-size: 42px;'>📅 Dashboard WarTeg!</h1>", unsafe_allow_html=True)
 
 # Pilihan tanggal
-# --- PERUBAHAN UNTUK MENAMBAHKAN NAMA HARI DI SELECTBOX ---
-# Ambil daftar tanggal (kunci dari dictionary)
-tanggal_list = list(jadwal.keys())
+from datetime import datetime # Pastikan ini ada di bagian atas file Anda
 
-# Buat fungsi untuk memformat tampilan di selectbox
-def format_nama_hari(tanggal):
-    nama_hari = jadwal[tanggal]['hari']
-    return f"{nama_hari}, {tanggal}"
+# --- PERUBAHAN MENGGUNAKAN POPUP KALENDER (st.date_input) ---
 
-# Gunakan format_func di st.selectbox
-selected_tanggal = st.selectbox(
+# 1. Ubah kunci string tanggal di data Anda menjadi objek tanggal
+#    Ini diperlukan untuk menentukan rentang tanggal yang valid di kalender.
+available_dates = [datetime.strptime(tgl, "%Y-%m-%d").date() for tgl in jadwal.keys()]
+
+# 2. Tampilkan popup kalender
+#    Kita batasi pilihan hanya pada tanggal yang ada di data jadwal.
+selected_date_obj = st.date_input(
     "Pilih tanggal",
-    options=tanggal_list,
-    format_func=format_nama_hari
+    value=min(available_dates),      # Tanggal default yang muncul
+    min_value=min(available_dates),  # Tanggal paling awal yang bisa dipilih
+    max_value=max(available_dates)   # Tanggal paling akhir yang bisa dipilih
 )
+
+# 3. Ubah kembali objek tanggal yang dipilih menjadi format string
+#    agar bisa digunakan untuk mencari data di dictionary 'jadwal'.
+selected_tanggal = selected_date_obj.strftime("%Y-%m-%d")
+
+# 4. Ambil data harian dengan aman
+#    Menggunakan .get() untuk menghindari error jika tanggal yang dipilih
+#    (misalnya hari libur di tengah rentang) tidak memiliki jadwal.
+data_harian = jadwal.get(selected_tanggal)
+
 # -----------------------------------------------------------
+
+# Tampilkan subheader dan konten HANYA JIKA ada jadwal untuk tanggal tersebut
+if data_harian:
+    st.subheader(f"{data_harian['hari']}, {selected_tanggal}")
+    # ... (sisa kode Anda untuk menampilkan tombol dan jadwal)
+else:
+    st.warning(f"Tidak ada jadwal yang tercatat untuk tanggal {selected_tanggal}.")
 
 data_harian = jadwal[selected_tanggal]
 
@@ -213,19 +231,37 @@ with col3:
         st.session_state.toggle = "lain"
 
 # Konten dinamis berdasarkan tombol yang ditekan
+# Konten dinamis berdasarkan tombol yang ditekan
 if st.session_state.toggle == "balai":
     st.success("👥 Petugas Balai Desa:")
-    tampilkan_petugas(data_harian["balai_desa"])
+    # Ambil data petugas, gunakan .get() agar lebih aman
+    petugas_balai_desa = data_harian.get("balai_desa")
+
+    # Cek jika data ada (tidak None dan tidak kosong)
+    if petugas_balai_desa:
+        tampilkan_petugas(petugas_balai_desa)
+    else:
+        # Tampilkan pesan jika None atau list kosong
+        st.info("🏖️ Libur")
+
 elif st.session_state.toggle == "masak":
     st.success("👩‍🍳 Petugas Masak:")
-    tampilkan_petugas(data_harian["masak"])
+    petugas_masak = data_harian.get("masak")
+
+    if petugas_masak:
+        tampilkan_petugas(petugas_masak)
+    else:
+        st.info("🏖️ Libur")
+
 elif st.session_state.toggle == "lain":
     st.info("📌 Jadwal Lain-Lain:")
-    if data_harian["lain_lain"]:
-        for kegiatan in data_harian["lain_lain"]:
+    jadwal_lain = data_harian.get("lain_lain")
+
+    if jadwal_lain:
+        for kegiatan in jadwal_lain:
             st.write(f"- {kegiatan}")
     else:
-        st.write("Belum ada jadwal lain.")
+        st.info("🏖️ Libur / Tidak ada jadwal lain.")
 
 st.markdown("---")
 
