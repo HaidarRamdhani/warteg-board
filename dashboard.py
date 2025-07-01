@@ -59,8 +59,8 @@ def render_satu_petugas(orang: dict):
             <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
                 <img src="data:image/png;base64,{base64_image}"
                      style="
-                        width: 80px;
-                        height: 80px;
+                        width: 100px;
+                        height: 100px;
                         object-fit: cover;
                         border-radius: 50%; /* Membuat gambar menjadi bulat */
                         margin-bottom: 8px;
