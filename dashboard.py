@@ -1,10 +1,9 @@
 import streamlit as st
 from datetime import date
 
-# Konfigurasi halaman
 st.set_page_config(page_title="Dashboard WarTeg", layout="wide")
 
-# Dummy jadwal
+# ==================== DATA DUMMY ==================== #
 jadwal = {
     "2025-07-01": {
         "hari": "Selasa",
@@ -20,7 +19,6 @@ jadwal = {
     }
 }
 
-# Dummy proker
 proker = [
     {
         "judul": "Penyuluhan Gizi",
@@ -29,11 +27,11 @@ proker = [
     }
 ]
 
-# Init state
+# ==================== STATE ==================== #
 if "toggle" not in st.session_state:
     st.session_state.toggle = {"balai": False, "masak": False, "lain": False}
 
-# Tanggal
+# ==================== TANGGAL ==================== #
 tanggal = st.selectbox("Pilih tanggal", list(jadwal.keys()))
 data = jadwal[tanggal]
 
@@ -41,34 +39,56 @@ st.markdown(f"## 📅 Dashboard WarTeg!")
 st.subheader(f"{data['hari']}, {tanggal}")
 st.divider()
 
-# Bagian ikon
+# ==================== STYLING ==================== #
+st.markdown("""
+<style>
+.icon-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: center;
+}
+.icon-button img {
+    width: 100px;
+    transition: 0.2s ease-in-out;
+}
+.icon-button img:hover {
+    transform: scale(1.1);
+}
+.icon-grid {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ==================== IKON (GAMBAR = TOMBOL) ==================== #
 st.markdown("### Jadwal Harian")
 
-col1, col2, col3 = st.columns(3)
+# Event click manual
+params = st.query_params
+if "klik" in params:
+    klik = params["klik"]
+    st.session_state.toggle[klik] = not st.session_state.toggle[klik]
 
-with col1:
-    st.image("assets/balai_desa.png", width=100)
-    if st.button("Balai Desa"):
-        st.session_state.toggle["balai"] = not st.session_state.toggle["balai"]
+# HTML dengan link query string untuk trigger toggle
+st.markdown(f"""
+<div class="icon-grid">
+    <a href="?klik=balai" class="icon-button"><img src="https://img.icons8.com/ios-filled/100/museum.png" title="Balai Desa" /></a>
+    <a href="?klik=masak" class="icon-button"><img src="https://img.icons8.com/ios/100/cooking-pot.png" title="Masak" /></a>
+    <a href="?klik=lain" class="icon-button"><img src="https://img.icons8.com/ios/100/more.png" title="Lain-Lain" /></a>
+</div>
+""", unsafe_allow_html=True)
 
-with col2:
-    st.image("assets/masak.png", width=100)
-    if st.button("Masak"):
-        st.session_state.toggle["masak"] = not st.session_state.toggle["masak"]
-
-with col3:
-    st.image("assets/lain_lain.png", width=100)
-    if st.button("Lain-Lain"):
-        st.session_state.toggle["lain"] = not st.session_state.toggle["lain"]
-
-# Konten toggle
+# ==================== KONTEN ==================== #
 if st.session_state.toggle["balai"]:
     st.success("👥 Petugas Balai Desa:")
     for nama in data["balai_desa"]:
         st.write(f"- {nama}")
 
 if st.session_state.toggle["masak"]:
-    st.success("👨‍🍳 Petugas Masak:")
+    st.success("👩‍🍳 Petugas Masak:")
     for nama in data["masak"]:
         st.write(f"- {nama}")
 
@@ -82,7 +102,7 @@ if st.session_state.toggle["lain"]:
 
 st.divider()
 
-# Proker
+# ==================== PROKER ==================== #
 st.markdown("### 📌 Daftar Proker")
 for idx, p in enumerate(proker):
     with st.expander(p["judul"]):
