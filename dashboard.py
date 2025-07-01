@@ -463,6 +463,18 @@ jadwal = {
             {"nama": "Gina", "gambar": "assets/Gina.png"}
         ],
         "lain_lain": None
+    },
+    "2025-08-02": {
+        "hari": "Sabtu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-08-03": {
+        "hari": "Minggu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
     }
 }
 
