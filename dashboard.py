@@ -19,7 +19,8 @@ def get_image_as_base64(path: str) -> str | None:
     except FileNotFoundError:
         # Jika file tidak ditemukan, tampilkan peringatan di konsol
         # dan kembalikan None agar bisa ditangani di UI.
-        print(f"Peringatan: File gambar tidak ditemukan di path: {path}")
+        # >>> LIHAT TERMINAL ANDA UNTUK PESAN INI <<<
+        print(f"PERINGATAN: File gambar tidak ditemukan di path: {path}")
         return None
 
 def tampilkan_petugas(daftar_petugas: list[dict]):
@@ -27,30 +28,31 @@ def tampilkan_petugas(daftar_petugas: list[dict]):
     Menampilkan daftar petugas dengan gambar dan nama.
     Menggunakan HTML dan Base64 untuk rendering gambar yang tajam.
     """
+    # Pesan debugging untuk terminal
+    print("\n--- Memproses daftar petugas ---") 
     for orang in daftar_petugas:
+        # Pesan debugging untuk setiap orang
+        print(f"Mencoba menampilkan: {orang['nama']} (Gambar: {orang['gambar']})")
+        
         col_img, col_nama = st.columns([1, 5], gap="small")
 
         with col_img:
-            # Panggil fungsi untuk mendapatkan string base64 dari thumbnail
             base64_image = get_image_as_base64(orang["gambar"])
 
             if base64_image:
-                # Buat string HTML untuk menampilkan gambar
-                image_html = f"""
-                    <img src="data:image/png;base64,{base64_image}"
-                         style="
-                            width: 64px;
-                            height: 64px;
-                            object-fit: cover;
-                            border-radius: 8px;
-                            image-rendering: -webkit-optimize-contrast;
-                            image-rendering: crisp-edges;
-                         "
-                    >
-                """
+                # Pesan debugging jika gambar berhasil di-encode
+                print(f"  -> SUKSES: Gambar untuk {orang['nama']} berhasil di-encode.")
+                
+                # Membuat string HTML dalam satu baris untuk menghindari eror format
+                style_str = "width:64px; height:64px; object-fit:cover; border-radius:8px; image-rendering:-webkit-optimize-contrast; image-rendering:crisp-edges;"
+                image_html = f'<img src="data:image/png;base64,{base64_image}" style="{style_str}">'
+                
                 # Render HTML, ini adalah bagian kunci yang memerlukan unsafe_allow_html
                 st.markdown(image_html, unsafe_allow_html=True)
             else:
+                # Pesan debugging jika gambar gagal ditemukan
+                print(f"  -> GAGAL: Gambar untuk {orang['nama']} tidak ditemukan.")
+                
                 # Jika gambar tidak ditemukan, tampilkan kotak placeholder
                 st.markdown(
                     '<div style="width:64px; height:64px; background-color:#ddd; border-radius:8px;"></div>', 
