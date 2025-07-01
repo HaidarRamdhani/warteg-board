@@ -106,7 +106,6 @@ def tampilkan_petugas(daftar_petugas):
 
         with col_img:
             # Panggil fungsi untuk mendapatkan string base64 dari thumbnail Anda
-            # Pastikan path di dictionary 'jadwal' menunjuk ke file thumbnail (contoh: 'assets/haidar_thumb.png')
             base64_image = get_image_as_base64(orang["gambar"])
 
             if base64_image:
@@ -123,13 +122,15 @@ def tampilkan_petugas(daftar_petugas):
                          "
                     >
                 """
+                # ---- PASTIKAN BAGIAN INI BENAR ----
                 st.markdown(image_html, unsafe_allow_html=True)
+                # ------------------------------------
             else:
                 # Tampilkan kotak abu-abu jika gambar tidak ditemukan
                 st.markdown('<div style="width:64px; height:64px; background-color:#ddd; border-radius:8px;"></div>', unsafe_allow_html=True)
 
         with col_nama:
-            # Bagian nama tetap sama
+            # Bagian nama tidak perlu diubah
             st.markdown(
                 f"""
                 <div style="height: 64px; display: flex; align-items: center;">
