@@ -86,13 +86,26 @@ with col3:
 
 def tampilkan_petugas(daftar_petugas):
     for orang in daftar_petugas:
-        col_img, col_nama = st.columns([1, 4])
-        with col_img:
-            # st.image akan otomatis mencari path 'assets/nama_gambar.jpg'
-            st.image(orang["gambar"], width=80, use_container_width="always")
-        with col_nama:
-            st.markdown(f"<div style='display: flex; align-items: center;'>{orang['nama']}</div>", unsafe_allow_html=True)
+        # 1. Perkecil jarak antar kolom dengan `gap="small"`
+        # 2. Sesuaikan rasio kolom agar lebih pas
+        col_img, col_nama = st.columns([1, 5], gap="small")
 
+        with col_img:
+            # Tetapkan lebar gambar ke 64px. Ini ukuran yang baik untuk ikon.
+            # Browser akan melakukan downscaling ke ukuran ini.
+            st.image(orang["gambar"], width=64)
+
+        with col_nama:
+            # Trik CSS untuk membuat nama berada di tengah secara vertikal
+            # dan menghilangkan margin default dari tag header.
+            st.markdown(
+                f"""
+                <div style="height: 64px; display: flex; align-items: center;">
+                    <h5 style="margin: 0; padding-left: 10px;">{orang['nama']}</h5>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 if st.session_state.toggle == "balai":
     st.success("👥 Petugas Balai Desa:")
     tampilkan_petugas(data_harian["balai_desa"])
