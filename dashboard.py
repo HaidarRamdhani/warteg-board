@@ -83,3 +83,15 @@ if show_lain:
     else:
         st.write("Belum ada jadwal.")
 
+# Proker
+st.subheader("📌 Daftar Proker")
+
+for idx, pk in enumerate(proker):
+    with st.expander(f"{pk['judul']}"):
+        st.write(f"📎 Catatan: {pk['catatan']}")
+        checks = [st.checkbox(f"{item}", key=f"{idx}-{i}") for i, item in enumerate(pk["subkegiatan"])]
+        persen = sum(checks) / len(checks) * 100
+        st.progress(persen / 100)
+        st.caption(f"{persen:.0f}% selesai")
+
+
