@@ -501,8 +501,30 @@ proker = [
 if "toggle" not in st.session_state:
     st.session_state.toggle = "balai" # Default ke tab pertama
 
-# Header utama
-st.markdown(f"<h1 style='font-size: 42px;'>📅 Dashboard WarTeg!</h1>", unsafe_allow_html=True)
+# --- PERUBAHAN UNTUK MENAMBAHKAN LOGO DI ATAS JUDUL ---
+
+# Buat dua kolom: satu untuk logo, satu untuk judul
+col_logo, col_title = st.columns([1, 5]) # Beri logo 1 bagian, judul 5 bagian
+
+with col_logo:
+    # Tampilkan logo Anda. Pastikan path-nya sudah benar.
+    # Ganti 'assets/logo.png' dengan path file logo Anda.
+    st.image("assets/logo.png", width=100)
+
+with col_title:
+    # Tampilkan judul. Gunakan CSS untuk mengatur posisi vertikal.
+    st.markdown(
+        """
+        <div style="height: 100px; display: flex; align-items: center;">
+            <h1 style="font-size: 42px; margin: 0;">Dashboard WarTeg!</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Beri sedikit spasi setelah header
+st.write("") 
+# -----------------------------------------------------------
 
 # Pilihan tanggal
 from datetime import datetime # Pastikan ini ada di bagian atas file Anda
