@@ -147,6 +147,322 @@ jadwal = {
             {"nama": "Lomi", "gambar": "assets/Lomi.png"}
         ],
         "lain_lain": None
+    },
+    "2025-07-05": {
+        "hari": "Sabtu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-07-06": {
+        "hari": "Minggu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+     "2025-07-07": {
+        "hari": "Senin",
+        "balai_desa": [
+            {"nama": "Gina", "gambar": "assets/Gina.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"}
+        ],
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"}
+        ],
+        "lain_lain": None
+    },
+     "2025-07-08": {
+        "hari": "Selasa",
+        "balai_desa": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"}
+        ],
+        "masak": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-09": {
+        "hari": "Rabu",
+        "balai_desa": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"}
+        ],
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-10": {
+        "hari": "Kamis",
+        "balai_desa": [
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"}
+        ],
+        "masak": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-11": {
+        "hari": "Jumat",
+        "balai_desa": None,
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-12": {
+        "hari": "Sabtu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-07-13": {
+        "hari": "Minggu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-07-14": {
+        "hari": "Senin",
+        "balai_desa": [
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"}
+        ],
+        "masak": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-15": {
+        "hari": "Selasa",
+        "balai_desa": [
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"}
+        ],
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-16": {
+        "hari": "Rabu",
+        "balai_desa": [
+            {"nama": "Gina", "gambar": "assets/Gina.png"},
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"}
+        ],
+        "masak": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-17": {
+        "hari": "Kamis",
+        "balai_desa": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"}
+        ],
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-18": {
+        "hari": "Jumat",
+        "balai_desa": None,
+        "masak": [
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-19": {
+        "hari": "Sabtu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-07-20": {
+        "hari": "Minggu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-07-21": {
+        "hari": "Senin",
+        "balai_desa": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"}
+        ],
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-22": {
+        "hari": "Selasa",
+        "balai_desa": [
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"}
+        ],
+        "masak": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-23": {
+        "hari": "Rabu",
+        "balai_desa": [
+            {"nama": "Gina", "gambar": "assets/Gina.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"}
+        ],
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-24": {
+        "hari": "Kamis",
+        "balai_desa": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"}
+        ],
+        "masak": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-25": {
+        "hari": "Jumat",
+        "balai_desa": None,
+        "masak": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-26": {
+        "hari": "Sabtu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-07-27": {
+        "hari": "Minggu",
+        "balai_desa": None,
+        "masak": None,
+        "lain_lain": None
+    },
+    "2025-07-28": {
+        "hari": "Senin",
+        "balai_desa": [
+            {"nama": "Atika", "gambar": "assets/Atika.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "masak": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-29": {
+        "hari": "Selasa",
+        "balai_desa": [
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Via", "gambar": "assets/Via.png"}
+        ],
+        "masak": [
+            {"nama": "Atika", "gambar": "assets/Gina.png"},
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-30": {
+        "hari": "Rabu",
+        "balai_desa": [
+            {"nama": "Deni", "gambar": "assets/Deni.png"},
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"}
+        ],
+        "masak": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"},
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-07-31": {
+        "hari": "Kamis",
+        "balai_desa": [
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Riska", "gambar": "assets/Riska.png"}
+        ],
+        "masak": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Haidar", "gambar": "assets/Haidar.png"},
+            {"nama": "Atika", "gambar": "assets/Atika.png"}
+        ],
+        "lain_lain": None
+    },
+    "2025-08-01": {
+        "hari": "Jumat",
+        "balai_desa": None,
+        "masak": [
+            {"nama": "Via", "gambar": "assets/Via.png"},
+            {"nama": "Lomi", "gambar": "assets/Lomi.png"},
+            {"nama": "Iqbal", "gambar": "assets/Iqbal.png"},
+            {"nama": "Gina", "gambar": "assets/Gina.png"}
+        ],
+        "lain_lain": None
     }
 }
 
