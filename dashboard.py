@@ -89,7 +89,7 @@ def tampilkan_petugas(daftar_petugas):
         col_img, col_nama = st.columns([1, 4])
         with col_img:
             # st.image akan otomatis mencari path 'assets/nama_gambar.jpg'
-            st.image(orang["gambar"], width=50, use_column_width="always")
+            st.image(orang["gambar"], width=50, use_container_width="always")
         with col_nama:
             st.markdown(f"<div style='height: 50px; display: flex; align-items: center;'>{orang['nama']}</div>", unsafe_allow_html=True)
 
