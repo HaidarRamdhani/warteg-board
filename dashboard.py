@@ -50,17 +50,17 @@ st.markdown("### Jadwal Harian")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.image("assets/balai_desa.png", width=100)
+    st.image("assets/balai_desa.svg", width=100)
     if st.button("Balai Desa"):
         toggle("balai")
 
 with col2:
-    st.image("assets/masak.png", width=100)
+    st.image("assets/masak.svg", width=100)
     if st.button("Masak"):
         toggle("masak")
 
 with col3:
-    st.image("assets/lain_lain.png", width=100)
+    st.image("assets/lain_lain.svg", width=100)
     if st.button("Lain-Lain"):
         toggle("lain")
 
