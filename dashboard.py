@@ -20,6 +20,16 @@ jadwal = {
     }
 }
 
+# Dummy data proker
+proker = [
+    {
+        "judul": "Penyuluhan Gizi",
+        "catatan": "Hubungi puskesmas & siapkan materi",
+        "subkegiatan": ["Hubungi narasumber", "Desain pamflet", "Cetak materi"],
+    }
+]
+
+
 # Pilih tanggal
 tanggal_list = list(jadwal.keys())
 selected_tanggal = st.selectbox("Pilih tanggal", tanggal_list)
