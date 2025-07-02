@@ -3,39 +3,11 @@ import base64
 import json
 from datetime import date
 # ==============================================================================
-# BLOK CSS LENGKAP (TEMA GELAP + PERBAIKAN LAYOUT)
+# BLOK CSS FINAL v3 (MENJAMIN ADA JARAK DALAM BOX)
 # ==============================================================================
 st.markdown("""
 <style>
-    /* === BAGIAN 1: TEMA GELAP UNTUK BOX EXPANDER (ATURAN BARU) === */
-
-    /* Mengubah warna latar belakang, sudut, dan garis batas expander */
-    div[data-testid="stExpander"] {
-        background-color: #31333F !important;
-        border-radius: 0.75rem !important; /* Membuat sudutnya lebih tumpul */
-        border: 1px solid #4A4C5A !important; /* Garis batas yg lebih sesuai tema */
-    }
-
-    /* Mengubah warna teks judul expander menjadi putih */
-    summary[data-testid="stExpanderHeader"] p {
-        color: white !important;
-        font-weight: 600 !important;
-    }
-
-    /* Mengubah warna semua teks DI DALAM expander menjadi putih */
-    div[data-testid="stExpanderDetails"] * {
-        color: white !important;
-    }
-
-    /* Mengubah warna panah dropdown menjadi putih */
-    div[data-testid="stExpander"] svg {
-        fill: white !important;
-    }
-
-
-    /* === BAGIAN 2: PERBAIKAN LAYOUT HP (ATURAN LAMA) === */
-
-    /* 1. Paksa area konten expander untuk punya padding (Batas Dalam) */
+    /* 1. PAKSA AREA KONTEN EXPANDER UNTUK PUNYA PADDING (Batas Dalam) */
     div[data-testid="stExpanderDetails"] {
         padding: 0.5rem 2rem 1rem 2rem !important; /* top | right | bottom | left */
     }
@@ -45,7 +17,7 @@ st.markdown("""
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
-        gap: 0.5rem;
+        gap: 0.5rem; /* Jarak antara checkbox dan tombol */
     }
 
     /* 3. Atur kolom checkbox (kolom pertama) agar bisa memanjang */
@@ -67,7 +39,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
 
 # ==============================================================================
 # FUNGSI-FUNGSI PEMBANTU
