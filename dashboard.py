@@ -3,23 +3,39 @@ import base64
 import json
 from datetime import date
 # ==============================================================================
-# BLOK CSS UNTUK MEMPERBAIKI TAMPILAN HP (TAMBAHKAN INI)
+# BLOK CSS FINAL UNTUK TAMPILAN SEMPURNA (GANTI DENGAN INI)
 # ==============================================================================
 st.markdown("""
 <style>
-    /* Target st.columns HANYA yang berada di dalam st.expander */
+    /* Target baris (st.columns) yang ada di dalam expander */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] {
-        align-items: center; /* Membuat checkbox dan tombol sejajar secara vertikal */
-        flex-wrap: nowrap;   /* Memaksa untuk tetap dalam satu baris */
+        display: flex;
+        align-items: center; /* KUNCI: Membuat kolom sejajar di tengah secara vertikal */
+        flex-wrap: nowrap;
+        gap: 1rem; /* Memberi sedikit jarak antar kolom */
     }
 
-    /* Target kolom yang berisi tombol hapus (kolom terakhir) di dalam expander */
+    /* Target kolom pertama (checkbox) agar bisa memanjang */
+    div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:first-child {
+        overflow: hidden; /* Mencegah teks panjang merusak layout */
+        flex-grow: 1;
+    }
+
+    /* Target kolom terakhir (tombol) agar ukurannya pas */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:last-child {
-        flex-shrink: 0;      /* Mencegah tombol dari 'penyusutan' */
-        padding-left: 5px;  /* Memberi sedikit jarak dari teks checkbox */
+        flex-grow: 0;
+    }
+
+    /* Membuat tombol hapus menjadi lebih kecil dan rapi */
+    div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] button {
+        padding: 0.2rem 0.5rem;
+        margin: 0;
+        line-height: 1;
     }
 </style>
 """, unsafe_allow_html=True)
+# ==============================================================================
+
 # ==============================================================================
 # FUNGSI-FUNGSI PEMBANTU
 # ==============================================================================
