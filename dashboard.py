@@ -7,14 +7,19 @@ from datetime import date
 # ==============================================================================
 st.markdown("""
 <style>
-    /* Target semua container st.columns */
-    div[data-testid="stHorizontalBlock"] {
-        /* Memaksa kolom untuk tidak pindah ke baris baru (wrap) */
-        flex-wrap: nowrap !important;
+    /* Target st.columns HANYA yang berada di dalam st.expander */
+    div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] {
+        align-items: center; /* Membuat checkbox dan tombol sejajar secara vertikal */
+        flex-wrap: nowrap;   /* Memaksa untuk tetap dalam satu baris */
+    }
+
+    /* Target kolom yang berisi tombol hapus (kolom terakhir) di dalam expander */
+    div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:last-child {
+        flex-shrink: 0;      /* Mencegah tombol dari 'penyusutan' */
+        padding-left: 10px;  /* Memberi sedikit jarak dari teks checkbox */
     }
 </style>
 """, unsafe_allow_html=True)
-
 # ==============================================================================
 # FUNGSI-FUNGSI PEMBANTU
 # ==============================================================================
