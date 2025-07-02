@@ -739,7 +739,7 @@ def tambah_sub_kegiatan(index_proker, nama_sub_kegiatan):
 
 # Tampilkan semua proker dari session_state
 for idx, pk in enumerate(st.session_state.proker):
-    with st.expander(f"{pk['judul']}", expanded=True):
+    with st.expander(f"{pk['judul']}"):
         st.write(f"📎 Catatan: {pk['catatan']}")
 
         # Tampilkan dan proses setiap sub-kegiatan
@@ -843,7 +843,7 @@ st.write("---")
 
 # 2. Tampilkan setiap TOPIK BELANJA dalam expander
 for idx, topik in enumerate(st.session_state.list_belanja):
-    with st.expander(f"{topik['judul']}", expanded=True):
+    with st.expander(f"{topik['judul']}"):
         
         # 3. Tampilkan setiap ITEM BELANJA di dalam topik
         ada_perubahan_check_belanja = False
