@@ -9,7 +9,7 @@ st.markdown("""
 <style>
     /* 1. PAKSA AREA KONTEN EXPANDER UNTUK PUNYA PADDING (Batas Dalam) */
     div[data-testid="stExpanderDetails"] {
-        padding: 0.5rem 2rem 1rem 2rem !important; /* top | right | bottom | left */
+        padding: 0.5rem 2.5rem 1rem 2.5rem !important; /* top | right | bottom | left */
     }
 
     /* 2. Atur baris (st.columns) di dalam expander agar sejajar & tidak turun baris */
