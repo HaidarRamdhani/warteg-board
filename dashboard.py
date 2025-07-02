@@ -602,7 +602,7 @@ elif st.session_state.toggle == "lain":
 st.markdown("---")
 
 # ==============================================================================
-# BAGIAN PROGRAM KERJA (DENGAN PENYIMPANAN PERMANEN)
+# BAGIAN PROGRAM KERJA (DENGAN TOMBOL HAPUS)
 # ==============================================================================
 
 st.markdown("---")
@@ -610,8 +610,6 @@ st.markdown("### 📌 Daftar Proker")
 
 # NAMA FILE UNTUK MENYIMPAN DATA
 NAMA_FILE_DATA = "data_proker.json"
-
-# DATA DEFAULT JIKA FILE TIDAK DITEMUKAN
 
 # DATA DEFAULT JIKA FILE TIDAK DITEMUKAN
 DATA_DEFAULT = [
@@ -644,7 +642,7 @@ DATA_DEFAULT = [
     }
 ]
 
-# --- FUNGSI UNTUK MEMBACA DAN MENYIMPAN DATA ---
+# --- FUNGSI UNTUK MEMBACA, MENYIMPAN, DAN MENGHAPUS DATA ---
 
 def simpan_data(data):
     """Menyimpan data proker ke file JSON."""
@@ -657,17 +655,23 @@ def muat_data():
         with open(NAMA_FILE_DATA, 'r') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        # Jika file tidak ada atau kosong/rusak, gunakan data default dan simpan
         simpan_data(DATA_DEFAULT)
         return DATA_DEFAULT
 
+# --- FUNGSI UNTUK MENGHAPUS SUB-KEGIATAN ---
+def hapus_sub_kegiatan(index_proker, index_sub_kegiatan):
+    """Menghapus sebuah sub-kegiatan dari proker tertentu."""
+    del st.session_state.proker[index_proker]['subkegiatan'][index_sub_kegiatan]
+    simpan_data(st.session_state.proker) # Simpan perubahan ke file
+    # st.rerun() tidak perlu dipanggil di sini karena on_click akan memicu rerun
+
 # --- LOGIKA UTAMA ---
 
-# 1. Muat data ke session_state saat aplikasi pertama kali dijalankan
+# Muat data ke session_state saat aplikasi pertama kali dijalankan
 if 'proker' not in st.session_state:
     st.session_state.proker = muat_data()
 
-# 2. Form untuk menambah Program Kerja (Proker) baru
+# Form untuk menambah Program Kerja (Proker) baru
 with st.form("form_proker_baru", clear_on_submit=True):
     st.write("**Tambah Program Kerja Baru**")
     judul_baru = st.text_input("Judul Proker")
@@ -680,43 +684,53 @@ with st.form("form_proker_baru", clear_on_submit=True):
             "catatan": catatan_baru,
             "subkegiatan": []
         })
-        simpan_data(st.session_state.proker) # Langsung simpan perubahan
+        simpan_data(st.session_state.proker)
         st.success(f"Proker '{judul_baru}' berhasil ditambahkan!")
         st.rerun()
 
 st.write("---")
 
-# 3. Fungsi untuk menambah sub-kegiatan (dengan penyimpanan)
+# Fungsi untuk menambah sub-kegiatan (dengan penyimpanan)
 def tambah_sub_kegiatan(index_proker, nama_sub_kegiatan):
     if nama_sub_kegiatan:
         st.session_state.proker[index_proker]['subkegiatan'].append(
             {"task": nama_sub_kegiatan, "checked": False}
         )
-        simpan_data(st.session_state.proker) # Langsung simpan perubahan
+        simpan_data(st.session_state.proker)
 
-# 4. Tampilkan semua proker dari session_state
+# Tampilkan semua proker dari session_state
 for idx, pk in enumerate(st.session_state.proker):
     with st.expander(f"{pk['judul']}", expanded=True):
         st.write(f"📎 Catatan: {pk['catatan']}")
 
-        # Tampilkan dan proses checkbox
-        # Setiap perubahan pada checkbox akan langsung disimpan
+        # Tampilkan dan proses setiap sub-kegiatan
         ada_perubahan_checkbox = False
         for i, sub in enumerate(pk["subkegiatan"]):
-            is_checked_sekarang = st.checkbox(
-                sub['task'],
-                value=sub['checked'],
-                key=f"proker_{idx}_{i}"
-            )
-            # Cek apakah status checkbox berubah
-            if st.session_state.proker[idx]['subkegiatan'][i]['checked'] != is_checked_sekarang:
-                st.session_state.proker[idx]['subkegiatan'][i]['checked'] = is_checked_sekarang
-                ada_perubahan_checkbox = True
+            # Buat kolom untuk checkbox dan tombol hapus
+            col_task, col_delete = st.columns([0.9, 0.1])
 
-        # Jika ada perubahan status checkbox, simpan semua data
+            with col_task:
+                is_checked_sekarang = st.checkbox(
+                    sub['task'],
+                    value=sub['checked'],
+                    key=f"proker_{idx}_{i}"
+                )
+                if st.session_state.proker[idx]['subkegiatan'][i]['checked'] != is_checked_sekarang:
+                    st.session_state.proker[idx]['subkegiatan'][i]['checked'] = is_checked_sekarang
+                    ada_perubahan_checkbox = True
+
+            with col_delete:
+                st.button(
+                    "🗑️",
+                    key=f"delete_{idx}_{i}",
+                    on_click=hapus_sub_kegiatan,
+                    args=(idx, i), # Kirim index proker dan index sub-kegiatan
+                    help="Hapus sub-kegiatan ini" # Tooltip saat mouse diarahkan ke tombol
+                )
+
         if ada_perubahan_checkbox:
             simpan_data(st.session_state.proker)
-            st.rerun() # Refresh untuk memastikan konsistensi
+            st.rerun()
 
         # Hitung progress bar
         if pk["subkegiatan"]:
@@ -731,14 +745,5 @@ for idx, pk in enumerate(st.session_state.proker):
 
         # Input untuk menambah sub-kegiatan baru
         st.write("**Tambah Sub-Kegiatan:**")
-        input_sub = st.text_input(
-            "Ketik sub-kegiatan baru",
-            key=f"input_sub_{idx}",
-            label_visibility="collapsed"
-        )
-        st.button(
-            "➕ Tambah",
-            key=f"tambah_sub_{idx}",
-            on_click=tambah_sub_kegiatan,
-            args=(idx, input_sub)
-        )
+        input_sub = st.text_input("Ketik sub-kegiatan baru", key=f"input_sub_{idx}", label_visibility="collapsed")
+        st.button("➕ Tambah", key=f"tambah_sub_{idx}", on_click=tambah_sub_kegiatan, args=(idx, input_sub))
