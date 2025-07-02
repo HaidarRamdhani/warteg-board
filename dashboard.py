@@ -3,31 +3,35 @@ import base64
 import json
 from datetime import date
 # ==============================================================================
-# BLOK CSS FINAL v2 (DENGAN MARGIN KANAN)
+# BLOK CSS FINAL v3 (MENJAMIN ADA JARAK DALAM BOX)
 # ==============================================================================
 st.markdown("""
 <style>
-    /* Target baris (st.columns) yang ada di dalam expander */
+    /* 1. PAKSA AREA KONTEN EXPANDER UNTUK PUNYA PADDING (Batas Dalam) */
+    div[data-testid="stExpanderDetails"] {
+        padding: 0.5rem 1rem 1rem 1rem !important; /* top | right | bottom | left */
+    }
+
+    /* 2. Atur baris (st.columns) di dalam expander agar sejajar & tidak turun baris */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] {
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
-        gap: 1rem;
+        gap: 0.5rem; /* Jarak antara checkbox dan tombol */
     }
 
-    /* Target kolom pertama (checkbox) agar bisa memanjang */
+    /* 3. Atur kolom checkbox (kolom pertama) agar bisa memanjang */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:first-child {
         overflow: hidden;
         flex-grow: 1;
     }
 
-    /* Target kolom terakhir (tombol) agar ukurannya pas */
+    /* 4. Atur kolom tombol (kolom terakhir) agar ukurannya pas */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:last-child {
         flex-grow: 0;
-        margin-right: 0.5rem; /* <<<--- INI DIA PENAMBAHANNYA */
     }
 
-    /* Membuat tombol hapus menjadi lebih kecil dan rapi */
+    /* 5. Atur tombolnya agar kecil dan rapi */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] button {
         padding: 0.2rem 0.5rem;
         margin: 0;
@@ -35,7 +39,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-# ==============================================================================
+
 
 
 # ==============================================================================
