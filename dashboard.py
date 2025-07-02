@@ -831,7 +831,7 @@ if 'list_belanja' not in st.session_state:
 # 1. Form untuk menambah TOPIK BELANJA BARU
 with st.form("form_topik_belanja_baru", clear_on_submit=True):
     st.write("**Tambah Topik Keperluan Baru**")
-    judul_topik_baru = st.text_input("Judul Topik (cth: Belanja Dapur, Keperluan Anak)")
+    judul_topik_baru = st.text_input("Judul Topik (misal: Belanja Dapur, Keperluan POC)")
     if st.form_submit_button("➕ Tambah Topik"):
         tambah_topik_belanja(judul_topik_baru)
         st.success(f"Topik '{judul_topik_baru}' berhasil ditambahkan!")
@@ -866,4 +866,4 @@ for idx, topik in enumerate(st.session_state.list_belanja):
 
         st.divider()
         # 5. Tombol untuk menghapus SELURUH TOPIK BELANJA
-        st.button("❌ Hapus Topik Keperluan Ini", key=f"hapus_topik_{idx}", on_click=hapus_topik_belanja, args=(idx,))
+        st.button("❌ Hapus Semua List", key=f"hapus_topik_{idx}", on_click=hapus_topik_belanja, args=(idx,))
