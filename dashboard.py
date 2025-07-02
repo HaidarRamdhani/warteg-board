@@ -1,5 +1,6 @@
 import streamlit as st
 import base64
+import json
 from datetime import date
 
 # ==============================================================================
@@ -478,21 +479,6 @@ jadwal = {
     }
 }
 
-# Data program kerja
-proker = [
-    {
-        "judul": "Kandaga",
-        "catatan": "Budidaya Ikan dalam Galon",
-        "subkegiatan": ["Beli EM4", "Beli Plastik", "Beli Media Tanam","Beli Selang", "Galon", "Sewa Alat", "Pengendapan Air",
-                       "Rakit Media", "Beli Bibit", "Barang Jadi (Trial)", "Demonstrasi 1", "Demonstrasi 2"],
-    },
-    {
-        "judul": "TandurKit",
-        "catatan": "Kit/Starter Pack Penanaman untuk Anak",
-        "subkegiatan": ["Beli Bahan", "Isi Kit", "Demonstrasi"],
-    }
-]
-
 # ==============================================================================
 # TATA LETAK / UI (USER INTERFACE)
 # ==============================================================================
@@ -615,15 +601,144 @@ elif st.session_state.toggle == "lain":
 
 st.markdown("---")
 
-# Bagian Program Kerja
+# ==============================================================================
+# BAGIAN PROGRAM KERJA (DENGAN PENYIMPANAN PERMANEN)
+# ==============================================================================
+
+st.markdown("---")
 st.markdown("### 📌 Daftar Proker")
-for idx, pk in enumerate(proker):
-    with st.expander(f"{pk['judul']}"):
+
+# NAMA FILE UNTUK MENYIMPAN DATA
+NAMA_FILE_DATA = "data_proker.json"
+
+# DATA DEFAULT JIKA FILE TIDAK DITEMUKAN
+
+# DATA DEFAULT JIKA FILE TIDAK DITEMUKAN
+DATA_DEFAULT = [
+    {
+        "judul": "Kandaga",
+        "catatan": "Budidaya Ikan dalam Galon",
+        "subkegiatan": [
+            {"task": "Beli EM4", "checked": False},
+            {"task": "Beli Plastik", "checked": False},
+            {"task": "Beli Media Tanam", "checked": False},
+            {"task": "Beli Selang", "checked": False},
+            {"task": "Galon", "checked": False},
+            {"task": "Sewa Alat", "checked": False},
+            {"task": "Pengendapan Air", "checked": False},
+            {"task": "Rakit Media", "checked": False},
+            {"task": "Beli Bibit", "checked": False},
+            {"task": "Barang Jadi (Trial)", "checked": False},
+            {"task": "Demonstrasi 1", "checked": False},
+            {"task": "Demonstrasi 2", "checked": False}
+        ],
+    },
+    {
+        "judul": "TandurKit",
+        "catatan": "Kit/Starter Pack Penanaman untuk Anak",
+        "subkegiatan": [
+            {"task": "Beli Bahan", "checked": False},
+            {"task": "Isi Kit", "checked": False},
+            {"task": "Demonstrasi", "checked": False}
+        ],
+    }
+]
+
+# --- FUNGSI UNTUK MEMBACA DAN MENYIMPAN DATA ---
+
+def simpan_data(data):
+    """Menyimpan data proker ke file JSON."""
+    with open(NAMA_FILE_DATA, 'w') as f:
+        json.dump(data, f, indent=4)
+
+def muat_data():
+    """Memuat data proker dari file JSON. Jika file tidak ada, buat baru."""
+    try:
+        with open(NAMA_FILE_DATA, 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        # Jika file tidak ada atau kosong/rusak, gunakan data default dan simpan
+        simpan_data(DATA_DEFAULT)
+        return DATA_DEFAULT
+
+# --- LOGIKA UTAMA ---
+
+# 1. Muat data ke session_state saat aplikasi pertama kali dijalankan
+if 'proker' not in st.session_state:
+    st.session_state.proker = muat_data()
+
+# 2. Form untuk menambah Program Kerja (Proker) baru
+with st.form("form_proker_baru", clear_on_submit=True):
+    st.write("**Tambah Program Kerja Baru**")
+    judul_baru = st.text_input("Judul Proker")
+    catatan_baru = st.text_input("Catatan Proker (opsional)")
+    submitted = st.form_submit_button("➕ Tambah Proker")
+
+    if submitted and judul_baru:
+        st.session_state.proker.append({
+            "judul": judul_baru,
+            "catatan": catatan_baru,
+            "subkegiatan": []
+        })
+        simpan_data(st.session_state.proker) # Langsung simpan perubahan
+        st.success(f"Proker '{judul_baru}' berhasil ditambahkan!")
+        st.rerun()
+
+st.write("---")
+
+# 3. Fungsi untuk menambah sub-kegiatan (dengan penyimpanan)
+def tambah_sub_kegiatan(index_proker, nama_sub_kegiatan):
+    if nama_sub_kegiatan:
+        st.session_state.proker[index_proker]['subkegiatan'].append(
+            {"task": nama_sub_kegiatan, "checked": False}
+        )
+        simpan_data(st.session_state.proker) # Langsung simpan perubahan
+
+# 4. Tampilkan semua proker dari session_state
+for idx, pk in enumerate(st.session_state.proker):
+    with st.expander(f"{pk['judul']}", expanded=True):
         st.write(f"📎 Catatan: {pk['catatan']}")
-        checks = [st.checkbox(f"{item}", key=f"proker_{idx}_{i}") for i, item in enumerate(pk["subkegiatan"])]
-        if checks:
+
+        # Tampilkan dan proses checkbox
+        # Setiap perubahan pada checkbox akan langsung disimpan
+        ada_perubahan_checkbox = False
+        for i, sub in enumerate(pk["subkegiatan"]):
+            is_checked_sekarang = st.checkbox(
+                sub['task'],
+                value=sub['checked'],
+                key=f"proker_{idx}_{i}"
+            )
+            # Cek apakah status checkbox berubah
+            if st.session_state.proker[idx]['subkegiatan'][i]['checked'] != is_checked_sekarang:
+                st.session_state.proker[idx]['subkegiatan'][i]['checked'] = is_checked_sekarang
+                ada_perubahan_checkbox = True
+
+        # Jika ada perubahan status checkbox, simpan semua data
+        if ada_perubahan_checkbox:
+            simpan_data(st.session_state.proker)
+            st.rerun() # Refresh untuk memastikan konsistensi
+
+        # Hitung progress bar
+        if pk["subkegiatan"]:
+            checks = [sub['checked'] for sub in pk['subkegiatan']]
             persen = sum(checks) / len(checks)
             st.progress(persen)
             st.caption(f"{persen:.0%} selesai")
         else:
-            st.caption("Tidak ada sub-kegiatan.")
+            st.caption("Belum ada sub-kegiatan.")
+
+        st.write("")
+
+        # Input untuk menambah sub-kegiatan baru
+        st.write("**Tambah Sub-Kegiatan:**")
+        input_sub = st.text_input(
+            "Ketik sub-kegiatan baru",
+            key=f"input_sub_{idx}",
+            label_visibility="collapsed"
+        )
+        st.button(
+            "➕ Tambah",
+            key=f"tambah_sub_{idx}",
+            on_click=tambah_sub_kegiatan,
+            args=(idx, input_sub)
+        )
