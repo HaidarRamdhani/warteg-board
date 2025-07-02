@@ -16,7 +16,7 @@ st.markdown("""
     /* Target kolom yang berisi tombol hapus (kolom terakhir) di dalam expander */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:last-child {
         flex-shrink: 0;      /* Mencegah tombol dari 'penyusutan' */
-        padding-left: 10px;  /* Memberi sedikit jarak dari teks checkbox */
+        padding-left: 5px;  /* Memberi sedikit jarak dari teks checkbox */
     }
 </style>
 """, unsafe_allow_html=True)
