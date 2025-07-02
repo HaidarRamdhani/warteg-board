@@ -747,3 +747,83 @@ for idx, pk in enumerate(st.session_state.proker):
         st.write("**Tambah Sub-Kegiatan:**")
         input_sub = st.text_input("Ketik sub-kegiatan baru", key=f"input_sub_{idx}", label_visibility="collapsed")
         st.button("➕ Tambah", key=f"tambah_sub_{idx}", on_click=tambah_sub_kegiatan, args=(idx, input_sub))
+
+
+# ==============================================================================
+# SECTION BARU: LIST BELANJA
+# ==============================================================================
+
+st.markdown("---")
+st.markdown("### 🛒 List Belanja")
+
+# NAMA FILE UNTUK MENYIMPAN DATA BELANJA
+NAMA_FILE_BELANJA = "data_belanja.json"
+
+# --- FUNGSI UNTUK DATA BELANJA ---
+
+def simpan_data_belanja(data):
+    """Menyimpan list belanja ke file JSON."""
+    with open(NAMA_FILE_BELANJA, 'w') as f:
+        json.dump(data, f, indent=4)
+
+def muat_data_belanja():
+    """Memuat list belanja dari file JSON. Jika file tidak ada, kembalikan list kosong."""
+    try:
+        with open(NAMA_FILE_BELANJA, 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return [] # Jika file belum ada, mulai dengan list kosong
+
+def hapus_item_belanja(index_item):
+    """Menghapus sebuah item dari list belanja."""
+    del st.session_state.list_belanja[index_item]
+    simpan_data_belanja(st.session_state.list_belanja)
+
+def tambah_item_belanja():
+    """Menambah item baru ke list belanja dari input text."""
+    nama_item_baru = st.session_state.input_belanja_baru # Ambil teks dari input
+    if nama_item_baru:
+        st.session_state.list_belanja.append({"task": nama_item_baru, "checked": False})
+        simpan_data_belanja(st.session_state.list_belanja)
+        st.session_state.input_belanja_baru = "" # Kosongkan input text setelah ditambah
+
+# Inisialisasi session state untuk list belanja
+if 'list_belanja' not in st.session_state:
+    st.session_state.list_belanja = muat_data_belanja()
+
+# UI untuk menambah item belanja
+st.text_input(
+    "Ketik nama barang belanjaan...",
+    key="input_belanja_baru", # Key untuk input text
+    on_change=tambah_item_belanja, # Panggil fungsi saat menekan Enter
+    label_visibility="collapsed"
+)
+
+st.write("") # Memberi sedikit spasi
+
+# UI untuk menampilkan semua item belanja
+ada_perubahan_checkbox_belanja = False
+for i, item in enumerate(st.session_state.list_belanja):
+    col_item, col_delete_item = st.columns([0.9, 0.1])
+    with col_item:
+        is_checked_belanja = st.checkbox(
+            item['task'],
+            value=item['checked'],
+            key=f"belanja_item_{i}"
+        )
+        if st.session_state.list_belanja[i]['checked'] != is_checked_belanja:
+            st.session_state.list_belanja[i]['checked'] = is_checked_belanja
+            ada_perubahan_checkbox_belanja = True
+    with col_delete_item:
+        st.button(
+            "🗑️",
+            key=f"delete_belanja_{i}",
+            on_click=hapus_item_belanja,
+            args=(i,),
+            help="Hapus barang ini"
+        )
+
+# Simpan perubahan jika ada checkbox yang dicentang/dihilangkan centangnya
+if ada_perubahan_checkbox_belanja:
+    simpan_data_belanja(st.session_state.list_belanja)
+    st.rerun()
