@@ -2,6 +2,18 @@ import streamlit as st
 import base64
 import json
 from datetime import date
+# ==============================================================================
+# BLOK CSS UNTUK MEMPERBAIKI TAMPILAN HP (TAMBAHKAN INI)
+# ==============================================================================
+st.markdown("""
+<style>
+    /* Target semua container st.columns */
+    div[data-testid="stHorizontalBlock"] {
+        /* Memaksa kolom untuk tidak pindah ke baris baru (wrap) */
+        flex-wrap: nowrap !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # ==============================================================================
 # FUNGSI-FUNGSI PEMBANTU
