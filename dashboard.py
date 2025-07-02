@@ -3,27 +3,28 @@ import base64
 import json
 from datetime import date
 # ==============================================================================
-# BLOK CSS FINAL UNTUK TAMPILAN SEMPURNA (GANTI DENGAN INI)
+# BLOK CSS FINAL v2 (DENGAN MARGIN KANAN)
 # ==============================================================================
 st.markdown("""
 <style>
     /* Target baris (st.columns) yang ada di dalam expander */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] {
         display: flex;
-        align-items: center; /* KUNCI: Membuat kolom sejajar di tengah secara vertikal */
+        align-items: center;
         flex-wrap: nowrap;
-        gap: 1rem; /* Memberi sedikit jarak antar kolom */
+        gap: 1rem;
     }
 
     /* Target kolom pertama (checkbox) agar bisa memanjang */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:first-child {
-        overflow: hidden; /* Mencegah teks panjang merusak layout */
+        overflow: hidden;
         flex-grow: 1;
     }
 
     /* Target kolom terakhir (tombol) agar ukurannya pas */
     div[data-testid="stExpander"] div[data-testid="stHorizontalBlock"] > div:last-child {
         flex-grow: 0;
+        margin-right: 0.5rem; /* <<<--- INI DIA PENAMBAHANNYA */
     }
 
     /* Membuat tombol hapus menjadi lebih kecil dan rapi */
@@ -35,6 +36,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 # ==============================================================================
+
 
 # ==============================================================================
 # FUNGSI-FUNGSI PEMBANTU
