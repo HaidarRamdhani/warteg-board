@@ -707,7 +707,7 @@ for idx, pk in enumerate(st.session_state.proker):
         ada_perubahan_checkbox = False
         for i, sub in enumerate(pk["subkegiatan"]):
             # Buat kolom untuk checkbox dan tombol hapus
-            col_task, col_delete = st.columns([0.9, 0.1])
+            col_task, col_delete = st.columns([0.9, 0.1], gap="small")
 
             with col_task:
                 is_checked_sekarang = st.checkbox(
@@ -809,7 +809,7 @@ for idx, topik in enumerate(st.session_state.list_belanja):
         # 3. Tampilkan setiap ITEM BELANJA di dalam topik
         ada_perubahan_check_belanja = False
         for i, item in enumerate(topik["items"]):
-            col_item, col_delete_item = st.columns([0.9, 0.1])
+            col_item, col_delete_item = st.columns([0.9, 0.1], gap="small")
             with col_item:
                 is_checked = st.checkbox(item['task'], value=item['checked'], key=f"belanja_{idx}_item_{i}")
                 if st.session_state.list_belanja[idx]['items'][i]['checked'] != is_checked:
