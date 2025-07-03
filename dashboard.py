@@ -868,3 +868,4 @@ for idx, topik in enumerate(st.session_state.list_belanja):
         # 5. Tombol untuk menghapus SELURUH TOPIK BELANJA
         st.button("❌ Hapus Semua List", key=f"hapus_topik_{idx}", on_click=hapus_topik_belanja, args=(idx,))
 # keep awake Wed Jul  2 18:36:40 UTC 2025
+# keep awake Thu Jul  3 02:08:21 UTC 2025
